@@ -6,6 +6,9 @@ const confirmConfirmBtn = document.getElementById('confirmConfirmBtn')
 const confirmEditBtn = document.getElementById('confirmEditBtn')
 const successHomeBtn = document.getElementById('successHomeBtn')
 const successNewProfileBtn = document.getElementById('successNewProfileBtn')
+const profilesHomeBtn = document.getElementById('profilesHomeBtn')
+const searchBox = document.getElementById('searchBox')
+const searchBtn = document.getElementById('searchBtn')
 
 const barcodeConatiner = document.getElementById('barcodeContainer')
 const dashBoardContainer = document.getElementById('dashBoardConatiner')
@@ -42,6 +45,7 @@ function barcodeEntryDisplay() {
     screenClear()
     barcodeConatiner.style.display = 'flex'
     barcodeInput.value = barcodeID
+    barcodeInput.focus();
 }
 
 function profileCreationEnteryDisplay() {
@@ -86,41 +90,89 @@ async function bookProfilesDisplay() {
         console.log(profileDataResponse.error)
     } else {
         const data = profileDataResponse.data
-        data.forEach(profile => {
-            const profileName = profile.book
-            const profileAuthor = profile.author
-            const profileID = profile.BarcodeID
-            
-            const profileWrapper = document.createElement('div')
-            profileWrapper.classList.add('profileWrapper')
 
-            const profileNameDiv = document.createElement('div')
-            profileNameDiv.classList.add('profileName')
-            profileNameDiv.innerHTML = profileName
-            profileWrapper.appendChild(profileNameDiv)
+        if (data.length > 0) {
+            profiles.innerHTML = ''
+            data.forEach(profile => {
+                const profileName = profile.book
+                const profileAuthor = profile.author
+                const profileID = profile.BarcodeID
+                
+                const profileWrapper = document.createElement('div')
+                profileWrapper.classList.add('profileWrapper')
 
-            const profileAuthorDiv = document.createElement('div')
-            profileAuthorDiv.classList.add('profileAuthor')
-            profileAuthorDiv.innerHTML = `Author: ${profileAuthor}`
-            profileWrapper.appendChild(profileAuthorDiv)
+                const profileNameDiv = document.createElement('div')
+                profileNameDiv.classList.add('profileName')
+                profileNameDiv.innerHTML = profileName
+                profileWrapper.appendChild(profileNameDiv)
 
-            const profileIDDIV = document.createElement('div')
-            profileIDDIV.classList.add('profileID')
-            profileIDDIV.innerHTML = `BarcodeID: ${profileID}`
-            profileWrapper.appendChild(profileIDDIV)
+                const profileAuthorDiv = document.createElement('div')
+                profileAuthorDiv.classList.add('profileAuthor')
+                profileAuthorDiv.innerHTML = `Author: ${profileAuthor}`
+                profileWrapper.appendChild(profileAuthorDiv)
 
-            profiles.appendChild(profileWrapper)
-        });
+                const profileIDDIV = document.createElement('div')
+                profileIDDIV.classList.add('profileID')
+                profileIDDIV.innerHTML = `BarcodeID: ${profileID}`
+                profileWrapper.appendChild(profileIDDIV)
+
+                profiles.appendChild(profileWrapper)
+            });
+        } else {
+            profiles.innerHTML = 'No data to display.'
+        }
     }
 
     screenClear()
     bookProfilesContainer.style.display = 'flex'
+    searchBox.focus()
 
 
 }
 
+function displayResults(results) {
+profiles.innerHTML = ''
+                    results.forEach(profile => {
+                        const profileName = profile.book
+                        const profileAuthor = profile.author
+                        const profileID = profile.BarcodeID
+                        
+                        const profileWrapper = document.createElement('div')
+                        profileWrapper.classList.add('profileWrapper')
+
+                        const profileNameDiv = document.createElement('div')
+                        profileNameDiv.classList.add('profileName')
+                        profileNameDiv.innerHTML = profileName
+                        profileWrapper.appendChild(profileNameDiv)
+
+                        const profileAuthorDiv = document.createElement('div')
+                        profileAuthorDiv.classList.add('profileAuthor')
+                        profileAuthorDiv.innerHTML = `Author: ${profileAuthor}`
+                        profileWrapper.appendChild(profileAuthorDiv)
+
+                        const profileIDDIV = document.createElement('div')
+                        profileIDDIV.classList.add('profileID')
+                        profileIDDIV.innerHTML = `BarcodeID: ${profileID}`
+                        profileWrapper.appendChild(profileIDDIV)
+
+                        profiles.appendChild(profileWrapper)
+                    });
+}
+
+async function search(searched) {
+    const searchData = await fetch('https://api.cdc.library.northern-star.online/dataSearch', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({searched: searched})
+    })
+
+    const resultData = await searchData.json()
+
+    displayResults(resultData.data)
+}
+
 newProfileBtn.addEventListener('click', () => {
-    barcodeEntryDisplay()    
+    barcodeEntryDisplay()   
 })
 
 barcodeContinueBtn.addEventListener('click', () => {
@@ -150,6 +202,10 @@ bookProfilesBtn.addEventListener('click', () => {
     bookProfilesDisplay()
 })
 
+profilesHomeBtn.addEventListener('click', () => {
+    homeDisplay()
+})
+
 confirmConfirmBtn.addEventListener('click', async () => {
     loading()
     profileAppend = await fetch('https://api.cdc.library.northern-star.online/profileAppend', {
@@ -173,6 +229,16 @@ confirmConfirmBtn.addEventListener('click', async () => {
         console.log('An error has ocoured:')
         console.log(response.error)
     }
+})
+
+searchBox.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        search(searchBox.value)
+    }
+})
+
+searchBtn.addEventListener('click', () => {
+    search(searchBox.value)
 })
 
 

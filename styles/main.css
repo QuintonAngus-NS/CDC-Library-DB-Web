@@ -319,7 +319,7 @@ input#barcodeInput:focus {
     height: 35px;
     font-size: 15px;
     font-weight: 600;
-    border: 1px solid #8bc98f;
+    border: 1px solid #141414;
     border-radius: 4px;
     display: flex;
     justify-content: center;
@@ -335,7 +335,8 @@ input#barcodeInput:focus {
 }
 
 #successHomeBtn {
-    background-color: #8bc98f;
+    background-color: #141414;
+    color: white;
 }
 
 #bookProfilesContainer {
@@ -383,4 +384,52 @@ input#barcodeInput:focus {
     font-weight: 500;
     font-size: 15px;
     margin-bottom: 10px;
+}
+
+#profilesHomeBtn {
+    width: 160px;
+    height: 35px;
+    font-size: 15px;
+    font-weight: 600;
+    border: 1px solid #141414;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+ 
+    color: white;
+    background-color: #141414;  
+}
+
+#profilesBtnWrapper {
+    margin-top: 25px; 
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+#searchBox, #searchBtn {
+    height: 35px;
+}
+
+#searchBox {
+    width: 400px;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px #141414 solid;
+}
+
+#searchBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#profilesSearchWrapper {
+    display: flex;
+    gap: 15px;
+    cursor: pointer;
 }
