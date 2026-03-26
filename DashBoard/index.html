@@ -1,0 +1,94 @@
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Book Manager</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../styles/main.css">
+        <link rel='icon' href='../Favicon.png'>
+    </head>
+
+    <body>
+        <div id="containerMain">
+            <div id="dashBoardConatiner">
+                <div id="dashBtnWrapper">
+                    <div class="dashBtn bold fillBlue white" id="addProfileBtn">Add Profile</div>
+                    <div class="dashBtn bold" id="bookProfilesBtn">Book Profiles</div>
+                </div>
+            </div>
+
+            <div id="barcodeContainer">
+                <div class="title">Scan Barcode</div>
+                <div class="subText">
+                    Please scan or enter the barcode accociated with the book for the profile, this will be
+                    used to identify the book when searching for it and checking the book in and out of the system.
+                </div>
+                <input type="text" placeholder="~152700716453" id="barcodeInput">
+                <div id="barcodeContinueBtn">Continue</div>
+            </div>
+            <div id="profileCreationContainer">
+            <div class="title">Create Profile</div>
+                <div class="subText">
+                    Please add the details of the book such as name, author, and wether it is age restricted, before then confirming the details and creating
+                    the book profile.
+                </div>
+                <div class="detailsInputWrapper">
+                    <div class="inputText">Name:</div>
+                    <input class="profileInput" type="text" placeholder="e.g. The ARK" id="bookNameInput">
+                </div>
+                <div class="detailsInputWrapper">
+                    <div class="inputText">Author:</div>
+                    <input class="profileInput" type="text" placeholder="e.g. Ben Oliver" id="authorInput">
+                </div>
+                <div id="profileCreationBtn">Continue</div>
+            </div>
+            <div id="confirmationContainer">
+                <div class="title">Confirm Profile</div>
+                <div class="subText">
+                    Finally confirm the book profile, if anything is wrong go back and edit it, then when your ready
+                    click confirm, and the profile will be created.
+                </div>
+                <div class="confirmText" id="confirmID"></div>
+                <div class="confirmText" id="confirmName"></div>
+                <div class="confirmText" id="confirmAuthor"></div>
+                <div id="confirmBtnWrapper">
+                    <div class="dashBtn bold confirmBtn" id="confirmConfirmBtn">Confirm</div>
+                    <div class="dashBtn bold fillBlue confirmBtn white" id="confirmEditBtn">Edit</div>
+                </div>
+            </div>
+            <div id="loadingContainer">
+                <div id="loadingCircle"></div>
+            </div>
+            <div id="successContainer">
+                <div id="successIcon" class="material-symbols-outlined">check</div>
+                <div id="successText">Success</div>
+                <div id="successSubText">
+                    The book profile has been successfully saved to the database, you can either view the profile and many
+                    others in the profile database, or go ahead and create another profile via the button bellow. 
+                </div>
+                <div id="successBtnWrapper">
+                    <div id="successHomeBtn" class="successBtn">Home</div>
+                    <div id="successNewProfileBtn" class="successBtn">New Profile</div>
+                </div>
+            </div>
+            <div id="bookProfilesContainer">
+                <div class="title">Book Profiles</div>
+                <div class="subText">
+                    Below is all stored book profiles, including their barcodeID, name, and author.
+                </div>
+                <div id="profiles">
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div id="versionNum">V1.0.0</div>    
+
+        <script src="../scripts/script.js"></script>
+    </body>
+
+</html>
