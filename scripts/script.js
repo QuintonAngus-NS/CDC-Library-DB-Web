@@ -122,13 +122,6 @@ async function bookProfilesDisplay() {
                 deleteBtn.innerHTML = 'Delete'
                 profileWrapper.appendChild(deleteBtn)
 
-                deleteBtn.addEventListener('click', async (e) => {
-                    const deleteRequest = await fetch('https://api.cdc.library.northern-star.online/deleteRequest', {
-                        method: 'POST',
-                        headers: {'Content-Type':'application/json'},
-                        body: JSON.stringify({id: e.target.id})
-                    })        
-                })
 
                 profiles.appendChild(profileWrapper)
             });
@@ -262,3 +255,18 @@ barcodeInput.addEventListener('keypress', (e) => {
     }    
 })
 
+deleteBtn.addEventListener('click', async (e) => {
+                    const deleteRequest = await fetch('https://api.cdc.library.northern-star.online/deleteRequest', {
+                        method: 'POST',
+                        headers: {'Content-Type':'application/json'},
+                        body: JSON.stringify({id: e.target.id})
+                    })
+                    
+                    const response = await deleteRequest.json()
+
+                    if (response.error) {
+                        console.log(response.error)
+                    } else {
+                        bookProfilesDisplay()    
+                    }
+                })
