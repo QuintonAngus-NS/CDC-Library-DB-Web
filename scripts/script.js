@@ -122,7 +122,7 @@ async function bookProfilesDisplay() {
                 profileWrapper.appendChild(deleteBtn)
 
                 deleteBtn.addEventListener('click', (e) => {
-                    console.log('e is:')
+                    console.log('clicked')
                     console.log(e)
                 })
 
