@@ -116,11 +116,22 @@ async function bookProfilesDisplay() {
                 profileIDDIV.innerHTML = `BarcodeID: ${profileID}`
                 profileWrapper.appendChild(profileIDDIV)
 
+                const profileBtnWrapper = document.createElement('div')
+                profileBtnWrapper.classList.add('profileBtnWrapper')
+
                 const deleteBtn = document.createElement('div')
                 deleteBtn.id = profileID
                 deleteBtn.classList.add('profilesHomeBtn')
                 deleteBtn.innerHTML = 'Delete'
-                profileWrapper.appendChild(deleteBtn)
+                profileBtnWrapper.appendChild(deleteBtn)
+
+                const editBtn = document.createElement('div')
+                editBtn.classList.add('profilesHomeBtn')
+                editBtn.innerHTML = 'Edit'
+                editBtn.id = profileID
+                profileBtnWrapper.appendChild(editBtn)
+
+                profileWrapper.appendChild(profileBtnWrapper)
 
                 deleteBtn.addEventListener('click', async (e) => {
                     const deleteRequest = await fetch('https://api.cdc.library.northern-star.online/deleteRequest', {

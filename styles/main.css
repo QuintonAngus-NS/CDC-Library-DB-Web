@@ -450,3 +450,8 @@ input#barcodeInput:focus {
     color: white;
     background-color: #141414;   
 }
+
+.profileBtnWrapper {
+    display: flex;
+    gap: 15px;
+}
