@@ -374,7 +374,7 @@ input#barcodeInput:focus {
 .profileName {
     font-size: 30px;
     font-weight: 600;
-    width: 45%;
+    width: 75%;
     padding-bottom: 10px;
     border-bottom: 1px #141414 solid;
     margin-bottom: 20px;
