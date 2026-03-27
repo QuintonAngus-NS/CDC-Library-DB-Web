@@ -124,7 +124,7 @@ async function bookProfilesDisplay() {
 
                 deleteBtn.addEventListener('click', (e) => {
                     console.log('clicked')
-                    console.log(e.id)
+                    console.log(e.target.id)
                 })
 
                 profiles.appendChild(profileWrapper)
