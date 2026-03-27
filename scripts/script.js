@@ -117,7 +117,7 @@ async function bookProfilesDisplay() {
                 profileWrapper.appendChild(profileIDDIV)
 
                 const deleteBtn = document.createElement('div')
-                deleteBtn.classList.add('dashBtn')
+                deleteBtn.classList.add('profilesHomeBtn')
                 deleteBtn.innerHTML = 'Delete'
                 profileWrapper.appendChild(deleteBtn)
 
