@@ -122,9 +122,12 @@ async function bookProfilesDisplay() {
                 deleteBtn.innerHTML = 'Delete'
                 profileWrapper.appendChild(deleteBtn)
 
-                deleteBtn.addEventListener('click', (e) => {
-                    console.log('clicked')
-                    console.log(e.target.id)
+                deleteBtn.addEventListener('click', async (e) => {
+                    const deleteRequest = await fetch('https://api.cdc.library.northern-star.online/deleteRequest', {
+                        method: 'POST',
+                        header: {'Content-Type':'application/json'},
+                        body: JSON.stringify({id: e.target.id})
+                    })        
                 })
 
                 profiles.appendChild(profileWrapper)
