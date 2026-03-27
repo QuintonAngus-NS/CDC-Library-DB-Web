@@ -241,5 +241,10 @@ searchBtn.addEventListener('click', () => {
     search(searchBox.value)
 })
 
-
+barcodeInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        barcodeID = barcodeInput.value
+    profileCreationEnteryDisplay()
+    }    
+})
 
