@@ -121,6 +121,10 @@ async function bookProfilesDisplay() {
                 deleteBtn.innerHTML = 'Delete'
                 profileWrapper.appendChild(deleteBtn)
 
+                deleteBtn.addEventListener('click', (e) => {
+                    console.log(e)
+                })
+
                 profiles.appendChild(profileWrapper)
             });
         } else {
