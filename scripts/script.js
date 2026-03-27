@@ -125,7 +125,7 @@ async function bookProfilesDisplay() {
                 deleteBtn.addEventListener('click', async (e) => {
                     const deleteRequest = await fetch('https://api.cdc.library.northern-star.online/deleteRequest', {
                         method: 'POST',
-                        header: {'Content-Type':'application/json'},
+                        headers: {'Content-Type':'application/json'},
                         body: JSON.stringify({id: e.target.id})
                     })        
                 })
