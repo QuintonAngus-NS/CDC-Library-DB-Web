@@ -116,6 +116,11 @@ async function bookProfilesDisplay() {
                 profileIDDIV.innerHTML = `BarcodeID: ${profileID}`
                 profileWrapper.appendChild(profileIDDIV)
 
+                const deleteBtn = document.createElement('div')
+                deleteBtn.classList.add('dashBtn')
+                deleteBtn.innerHTML = 'Delete'
+                profileWrapper.appendChild(deleteBtn)
+
                 profiles.appendChild(profileWrapper)
             });
         } else {
