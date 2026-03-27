@@ -132,7 +132,7 @@ async function bookProfilesDisplay() {
                     const response = await deleteRequest.json()
 
                     if (response.error) {
-                        console.log(response.error)
+                        console.log(`error ocoured: ${response.error}`)
                     } else {
                         bookProfilesDisplay()        
                     }
