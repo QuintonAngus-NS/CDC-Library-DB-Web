@@ -365,7 +365,7 @@ input#barcodeInput:focus {
 
 .profileWrapper {
     width: 90%;
-    height: fit-content;
+    height: auto;
     background: #f1f1f1;
     border-radius: 5px;
     padding: 10px;
