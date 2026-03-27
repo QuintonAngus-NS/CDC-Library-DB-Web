@@ -455,3 +455,26 @@ input#barcodeInput:focus {
     display: flex;
     gap: 15px;
 }
+
+.profileEditBtn {
+    width: 160px;
+    height: 35px;
+    font-size: 15px;
+    font-weight: 600;
+    border: 1px solid #141414;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+ 
+    color: #141414;
+    background-color: none;
+}
+
+.editComment {
+    color: #d5d5d5;
+    font-size: 15px;
+    font-weight: 600;
+}

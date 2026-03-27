@@ -126,12 +126,92 @@ async function bookProfilesDisplay() {
                 profileBtnWrapper.appendChild(deleteBtn)
 
                 const editBtn = document.createElement('div')
-                editBtn.classList.add('profilesHomeBtn')
+                editBtn.classList.add('profileEditBtn')
                 editBtn.innerHTML = 'Edit'
                 editBtn.id = profileID
                 profileBtnWrapper.appendChild(editBtn)
 
                 profileWrapper.appendChild(profileBtnWrapper)
+
+                editBtn.addEventListener('click', async(e) => {
+                    const editID = e.target.id
+
+                    const IDLookup = await fetch('https://api.cdc.library.northern-star.online/IDLookup', {
+                        method: 'POST',
+                        headers: {'Content-Type':'application/json'},
+                        body: {id: editID}
+                    })
+
+                    const editIDResponse = await IDLookup.json()
+
+                    if (editIDResponse.error) {
+                        console.log(`error ocoured: ${editIDResponse.error}`)
+                    } else {
+                        const editData = editIDResponse.data
+
+                        bookProfilesContainer.innerHTML = ''
+
+                        const title = document.createElement('div')
+                        title.classList.add('title')
+                        title.innerHTML = 'Edit profile'
+                        bookProfilesContainer.appendChild(title)
+
+                        const nameWrapper = document.createElement('div')
+                        nameWrapper.classList.add('detailsInputWrapper')
+                        bookProfilesContainer.appendChild(nameWrapper)
+
+                        const nameTitle = document.createElement('div')
+                        nameTitle.innerHTML = 'Name:'
+                        nameTitle.classList.add('inputText')
+                        nameWrapper.appendChild(nameTitle)
+
+                        const nameInput = document.createElement('input')
+                        nameInput.classList.add('profileInput')
+                        nameInput.placeholder = editData.name
+                        nameWrapper.appendChild(nameInput)
+
+                        const authorWrapper = document.createElement('div')
+                        authorWrapper.classList.add('detailsInputWrapper')
+                        bookProfilesContainer.appendChild(authorWrapper)
+
+                        const authorTitle = document.createElement('div')
+                        authorTitle.classList.add('inputText')
+                        authorTitle.innerHTML = 'Author'
+                        authorWrapper.appendChild(authorTitle)
+
+                        const authorEditInput = document.createElement('input')
+                        authorEditInput.classList.add('profileInput')
+                        authorEditInput.placeholder = editData.author
+                        authorWrapper.appendChild(authorEditInput)
+
+                        const idWrapper = document.createElement('div')
+                        idWrapper.classList.add('detailsInputWrapper')
+                        bookProfilesContainer.appendChild(idWrapper)
+
+                        const idTitle = document.createElement('div')
+                        idTitle.classList.add('inputText')
+                        idTitle.innerHTML = 'ID'
+                        idWrapper.appendChild(idTitle)
+
+                        const idInput = document.createElement('input')
+                        idInput.classList.add('profileInput')
+                        idInput.placeholder = editData.id
+                        idWrapper.appendChild(idInput)
+
+                        const comment = document.createElement('div')
+                        comment.classList.add('editComment')
+                        comment.innerHTML = 'Note: any fields filled in with data will be edited, any fields left empty will NOT be edited or changed'
+                        bookProfilesContainer.appendChild(comment)
+
+                        const confirmBtn = document.createElement('div')
+                        confirmBtn.classList.add('profileEditBtn')
+                        bookProfilesContainer.appendChild(confirmBtn)
+
+                        confirmBtn.addEventListener('click', () {
+                            
+                        })
+                    }
+                })
 
                 deleteBtn.addEventListener('click', async (e) => {
                     const deleteRequest = await fetch('https://api.cdc.library.northern-star.online/deleteRequest', {
