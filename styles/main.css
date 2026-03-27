@@ -434,7 +434,7 @@ input#barcodeInput:focus {
     cursor: pointer;
 }
 
-.#profilesHomeBtn {
+.profilesHomeBtn {
     width: 160px;
     height: 35px;
     font-size: 15px;
