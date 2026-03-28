@@ -10,6 +10,7 @@ const profilesHomeBtn = document.getElementById('profilesHomeBtn')
 const searchBox = document.getElementById('searchBox')
 const searchBtn = document.getElementById('searchBtn')
 
+
 const barcodeConatiner = document.getElementById('barcodeContainer')
 const dashBoardContainer = document.getElementById('dashBoardConatiner')
 const profileCreationContainer = document.getElementById('profileCreationContainer')
@@ -116,8 +117,6 @@ async function updateConfirmBtn(e) {
                             })
 
                             const updateProfileResponse = await updateProfileRequest.json()
-
-                            console.log(updateProfileResponse)
 
                             if (updateProfileResponse.error) {
                                 console.log(updateProfileResponse.error)
@@ -306,6 +305,43 @@ async function bookProfilesDisplay() {
     }
 
     const btnWrapper = document.createElement('div')
+    btnWrapper.id = 'profilesBtnWrapper'
+    bookProfilesContainer.appendChild(btnWrapper)
+
+    const homeBtn = document.createElement('div')
+    homeBtn.classList.add('profileDeleteBtn')
+    homeBtn.innerHTML = 'Home'
+    btnWrapper.appendChild(homeBtn)
+
+    homeBtn.addEventListener('click', () => {
+    homeDisplay()
+    })
+
+    const searchWrapper = document.createElement('div')
+    searchWrapper.id = 'profilesSearchWrapper'
+    btnWrapper.appendChild(searchWrapper)
+
+    const searchBox = document.createElement('input')
+    searchBox.type = 'text'
+    searchBox.placeholder = 'Search an ID, name, or author'
+    searchBox.id = 'searchBox'
+    btnWrapper.appendChild(searchBox)
+
+    searchBox.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        search(searchBox.value)
+    }
+    })
+
+    const searchBtn = document.createElement('div')
+    searchBtn.id = 'searchBtn'
+    searchBtn.classList.add('material-symbols-outlined')
+    searchBtn.innerHTML = 'search'
+    btnWrapper.appendChild(searchBtn)
+
+    searchBtn.addEventListener('click', () => {
+    search(searchBox.value)
+    })
 
     screenClear()
     bookProfilesContainer.style.display = 'flex'
@@ -352,7 +388,11 @@ async function search(searched) {
 
     const resultData = await searchData.json()
 
-    displayResults(resultData.data)
+    if (resultData.data.length === 0) {
+        bookProfilesDisplay()
+    } else {
+        displayResults(resultData.data)
+    }
 }
 
 newProfileBtn.addEventListener('click', () => {
@@ -370,10 +410,6 @@ profileContinueBtn.addEventListener('click', () => {
     confirmationDisplay()
 })
 
-confirmEditBtn.addEventListener('click', () => {
-    barcodeEntryDisplay()
-})
-
 successHomeBtn.addEventListener('click', () => {
     homeDisplay()
 })
@@ -384,10 +420,6 @@ successNewProfileBtn.addEventListener('click', () => {
 
 bookProfilesBtn.addEventListener('click', () => {
     bookProfilesDisplay()
-})
-
-profilesHomeBtn.addEventListener('click', () => {
-    homeDisplay()
 })
 
 confirmConfirmBtn.addEventListener('click', async () => {
@@ -413,16 +445,6 @@ confirmConfirmBtn.addEventListener('click', async () => {
         console.log('An error has ocoured:')
         console.log(response.error)
     }
-})
-
-searchBox.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        search(searchBox.value)
-    }
-})
-
-searchBtn.addEventListener('click', () => {
-    search(searchBox.value)
 })
 
 barcodeInput.addEventListener('keypress', (e) => {
