@@ -166,9 +166,11 @@ input#barcodeInput:focus {
     font-size: 15px;
     border: none;
     margin-left: 5px;
+    margin-right: 25px;
     padding-right: 5px;
     font-style: 15px;
     border-right: 1px solid #141414;
+    width: 100%;
 }
 
 .profileInput:focus {
@@ -474,7 +476,26 @@ input#barcodeInput:focus {
 }
 
 .editComment {
-    color: #d5d5d5;
+    color: #141414;
+    font-size: 15px;
+    font-weight: 300;
+    margin: 25px 0;
+    width: 60%;
+}
+
+.confirmUpdateBtn {
+    width: 160px;
+    height: 35px;
     font-size: 15px;
     font-weight: 600;
+    border: 1px solid #141414;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+ 
+    color: white;
+    background-color: #141414;
 }

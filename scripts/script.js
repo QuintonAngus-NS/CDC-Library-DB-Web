@@ -17,7 +17,6 @@ const confirmationContainer = document.getElementById('confirmationContainer')
 const loadingContainer = document.getElementById('loadingContainer')
 const successContainer = document.getElementById('successContainer')
 const bookProfilesContainer = document.getElementById('bookProfilesContainer')
-const profiles = document.getElementById('profiles')
 
 const barcodeInput = document.getElementById('barcodeInput')
 const bookNameInput = document.getElementById('bookNameInput')
@@ -78,8 +77,58 @@ function homeDisplay() {
     dashBoardContainer.style.display = 'flex'
 }
 
+async function updateConfirmBtn(e) {
+    let nameUpdate = document.getElementById('nameInputUpdate')
+                            
+                            if (nameUpdate.value === '') {
+                                nameUpdate = nameUpdate.placeholder
+                            } else {
+                                nameUpdate = nameUpdate.value
+                            }
+
+                            let authorUpdate = document.getElementById('authorEditInputUpdate')
+
+                            if (authorUpdate.value === '') {
+                                authorUpdate = authorUpdate.placeholder
+                            } else {
+                                authorUpdate = authorUpdate.value
+                            }
+
+                            let idUpdate = document.getElementById('idInputUpdate')
+
+                            if (idUpdate.value === '') {
+                                idUpdate = idUpdate.placeholder
+                            } else {
+                                idUpdate = idUpdate.value
+                            }
+
+                            const orignalID = e.target.id
+
+                            const updateProfileRequest = await fetch('https://api.cdc.library.northern-star.online/updateProfile', {
+                                method: 'POST',
+                                headers: {'Content-Type':'application/json'},
+                                body: JSON.stringify({
+                                    name: nameUpdate,
+                                    author: authorUpdate,
+                                    id: idUpdate,
+                                    orignalID: orignalID
+                                })
+                            })
+
+                            const updateProfileResponse = await updateProfileRequest.json()
+
+                            console.log(updateProfileResponse)
+
+                            if (updateProfileResponse.error) {
+                                console.log(updateProfileResponse.error)
+                            } else {
+                                bookProfilesDisplay()
+                            }
+}
+
 async function bookProfilesDisplay() {
     loading()
+    bookProfilesContainer.innerHTML = ''
     const profileData = await fetch('https://api.cdc.library.northern-star.online/profileData', {
         method: 'POST'
     })
@@ -90,6 +139,20 @@ async function bookProfilesDisplay() {
         console.log(profileDataResponse.error)
     } else {
         const data = profileDataResponse.data
+
+        const title = document.createElement('div')
+        title.classList.add('title')
+        title.innerHTML = 'Book Profiles'
+        bookProfilesContainer.appendChild(title)
+
+        const subText = document.createElement('div')
+        subText.classList.add('subText')
+        subText.innerHTML = 'Below is all stored book profiles, including their barcodeID, name, and author.'
+        bookProfilesContainer.appendChild(subText)
+
+        const profiles = document.createElement('div')
+        profiles.id = 'profiles'
+        bookProfilesContainer.appendChild(profiles)
 
         if (data.length > 0) {
             profiles.innerHTML = ''
@@ -139,7 +202,7 @@ async function bookProfilesDisplay() {
                     const IDLookup = await fetch('https://api.cdc.library.northern-star.online/IDLookup', {
                         method: 'POST',
                         headers: {'Content-Type':'application/json'},
-                        body: {id: editID}
+                        body: JSON.stringify({id: editID})
                     })
 
                     const editIDResponse = await IDLookup.json()
@@ -147,7 +210,7 @@ async function bookProfilesDisplay() {
                     if (editIDResponse.error) {
                         console.log(`error ocoured: ${editIDResponse.error}`)
                     } else {
-                        const editData = editIDResponse.data
+                        const editData = editIDResponse.data[0]
 
                         bookProfilesContainer.innerHTML = ''
 
@@ -167,7 +230,8 @@ async function bookProfilesDisplay() {
 
                         const nameInput = document.createElement('input')
                         nameInput.classList.add('profileInput')
-                        nameInput.placeholder = editData.name
+                        nameInput.id = 'nameInputUpdate'
+                        nameInput.placeholder = editData.book
                         nameWrapper.appendChild(nameInput)
 
                         const authorWrapper = document.createElement('div')
@@ -181,6 +245,7 @@ async function bookProfilesDisplay() {
 
                         const authorEditInput = document.createElement('input')
                         authorEditInput.classList.add('profileInput')
+                        authorEditInput.id = 'authorEditInputUpdate'
                         authorEditInput.placeholder = editData.author
                         authorWrapper.appendChild(authorEditInput)
 
@@ -195,7 +260,8 @@ async function bookProfilesDisplay() {
 
                         const idInput = document.createElement('input')
                         idInput.classList.add('profileInput')
-                        idInput.placeholder = editData.id
+                        idInput.id = 'idInputUpdate'
+                        idInput.placeholder = editData.BarcodeID
                         idWrapper.appendChild(idInput)
 
                         const comment = document.createElement('div')
@@ -204,11 +270,14 @@ async function bookProfilesDisplay() {
                         bookProfilesContainer.appendChild(comment)
 
                         const confirmBtn = document.createElement('div')
-                        confirmBtn.classList.add('profileEditBtn')
+                        confirmBtn.classList.add('confirmUpdateBtn')
+                        confirmBtn.innerHTML = 'Confirm'
+                        confirmBtn.id = editData.BarcodeID
                         bookProfilesContainer.appendChild(confirmBtn)
 
-                        confirmBtn.addEventListener('click', () {
-                            
+                        confirmBtn.addEventListener('click', async (e) => {
+                            updateConfirmBtn(e)
+
                         })
                     }
                 })
@@ -235,6 +304,8 @@ async function bookProfilesDisplay() {
             profiles.innerHTML = 'No data to display.'
         }
     }
+
+    const btnWrapper = document.createElement('div')
 
     screenClear()
     bookProfilesContainer.style.display = 'flex'
